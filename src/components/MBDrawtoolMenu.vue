@@ -22,37 +22,43 @@ const dlClick = () => {
 
 <style lang="scss" scoped>
 h2 {
-  margin-bottom: 30px;
+  margin-right: 40px;
 }
 #menu {
-  padding: 40px 20px;
+  padding: 20px 50px;
   border: 2px solid;
-  border-radius: 20px;
+  border-radius: 14px;
+  background-color: rgb(94, 185, 221);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .button {
   display: block;
   cursor: pointer;
-  padding: 10px 30px;
-  margin-bottom: 20px;
+  padding: 20px 30px;
+  margin-right: 20px;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-right: 0;
   }
 
   /* deco */
   border: 2px solid;
-  border-radius: 20px;
+  border-radius: 50px;
 
   /* text */
   text-align: center;
-  font-size: 0.7em;
+  font-size: 0.6em;
   letter-spacing: 0.2em;
   font-weight: 600;
 
+  background-color: rgb(255, 189, 45);
+
   &:hover {
-    background-color: rgb(223, 223, 223);
+    background-color: rgba(255, 189, 45, 0.6);
     transition: 0.3s;
-    transform: scale(1.015);
   }
 }
 </style>
