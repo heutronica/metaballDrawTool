@@ -50,12 +50,12 @@ const _guideCanvas = ref<InstanceType<typeof HTMLCanvasElement>>();
 let drawBlob: BlobCanvasStatus = {
   field: [],
   strokeWeight: 3,
-  strokeColor: "hsl(120, 0%, 30%)",
+  strokeColor: "hsl(0, 0%, 0%)",
   canvas: _drawCanvas.value?.getContext("2d") as CanvasRenderingContext2D,
 };
 
 let guideBlob: GuideCanvasStatus = {
-  strokeColor: "rgba(5,248,219,0.2)",
+  strokeColor: "rgba(5,248,219,0.8)",
   canvas: _guideCanvas.value?.getContext("2d") as CanvasRenderingContext2D,
 };
 
@@ -214,7 +214,6 @@ const judge = function (e: MouseEvent) {
     mousePointJudge.metaballCore.value = false;
     judgeStatus = "mouseIsNutral";
   }
-  console.log(judgeStatus);
 };
 
 const showGuide = function () {
@@ -311,25 +310,26 @@ const dlImage = function () {
 <style scoped>
 #wrap {
   position: relative;
-  /* overflow: hidden; */
+  height: 100vh;
 }
 #canvas {
   position: absolute;
   right: 0;
-  top: 0;
+  bottom: 100;
   z-index: 1;
 }
 #guideCanvas {
   position: absolute;
   right: 0;
-  top: 0;
+  bottom: 100;
   z-index: 0;
 }
 #menu {
   position: absolute;
   z-index: 2;
-  right: 0;
-  /* pointer-events: none; */
+  right: 50%;
+  bottom: 20px;
+  transform: translateX(50%);
 }
 .pointer {
   cursor: pointer;
