@@ -27,7 +27,7 @@ export class Blob {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.guideSize = size / 2;
+    this.guideSize = size * 1.1;
     this.resolution = resolution;
   }
 

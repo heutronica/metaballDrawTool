@@ -131,7 +131,6 @@ const startBlob = function (e: MouseEvent) {
 /**  When mouse release, generate metaball */
 const createBlob = function (e: MouseEvent) {
   if (blobsStatus.judge === true) {
-    console.log("create!");
     drawBlob.canvas.clearRect(0, 0, canvasWidth, canvasHeight);
     let blobsize: number =
       Math.round(
@@ -142,6 +141,12 @@ const createBlob = function (e: MouseEvent) {
           e.pageY / blobResolution
         ) * 10
       ) / 10;
+
+    if (blobsize > 50) {
+      blobsize = 50;
+    } else if (blobsize < 1) {
+      blobsize = 1;
+    }
 
     blobs.push(
       new blobFunc.Blob(
@@ -175,6 +180,7 @@ const move = function (e: MouseEvent) {
     temp_judge === true
   ) {
     temp_judge = true;
+    showGuide();
     moveBlob(e);
   }
 };
@@ -188,11 +194,7 @@ const judge = function (e: MouseEvent) {
   if (nowPoint === 1 && e.buttons === 0) {
     mousePointJudge.isoField = true;
     for (let i = 0; i < blobs.length; i++) {
-      if (blobs[i].getOnMouse(e) === "guide") {
-        mousePointJudge.whichMetaball = i;
-        mousePointJudge.metaballCore.value = false;
-        judgeStatus = "mouseOnMetaball";
-      } else if (blobs[i].getOnMouse(e) === "move") {
+      if (blobs[i].getOnMouse(e) === "move") {
         mousePointJudge.whichMetaball = i;
         mousePointJudge.metaballCore.value = true;
         judgeStatus = "mouseOnMetaballCore";
@@ -221,7 +223,7 @@ const showGuide = function () {
   guideBlob.canvas.arc(
     blobs[mousePointJudge.whichMetaball].getPosX() * blobResolution,
     blobs[mousePointJudge.whichMetaball].getPosY() * blobResolution,
-    blobs[mousePointJudge.whichMetaball].getGuideSize() * blobResolution,
+    blobs[mousePointJudge.whichMetaball].getSize() * blobResolution,
     0,
     360
   );
@@ -244,8 +246,12 @@ const moveBlob = function (e: MouseEvent) {
 
 const resizeBlob = function (e: WheelEvent) {
   if (mousePointJudge.metaballCore.value === true) {
-    blobs[mousePointJudge.whichMetaball].size += e.deltaY / -200;
-    blobs[mousePointJudge.whichMetaball].guideSize += e.deltaY / -200;
+    blobs[mousePointJudge.whichMetaball].size -= e.deltaY / 200;
+    if (blobs[mousePointJudge.whichMetaball].size < 1) {
+      blobs[mousePointJudge.whichMetaball].size = 1;
+    } else if (blobs[mousePointJudge.whichMetaball].size > 50) {
+      blobs[mousePointJudge.whichMetaball].size = 50;
+    }
     blobFunc.isoField(drawBlob.field, canvasCols, canvasRows, blobs);
     drawBlob.canvas.clearRect(0, 0, canvasWidth, canvasHeight);
     guideBlob.canvas.clearRect(0, 0, canvasWidth, canvasHeight);
