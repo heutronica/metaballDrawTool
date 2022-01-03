@@ -283,11 +283,6 @@ const dlImage = function () {
   }${today.getDate()}.png`;
   downloadLink.click();
 };
-
-// I want to implement it. //
-
-/** Add layer button */
-/** delete layer button */
 </script>
 
 <template>
