@@ -21,13 +21,11 @@ export class Blob {
   y: number;
   size: number;
   resolution: number;
-  guideSize: number;
 
   constructor(x: number, y: number, size: number, resolution: number) {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.guideSize = size * 1.1;
     this.resolution = resolution;
   }
 
@@ -39,9 +37,6 @@ export class Blob {
   }
   getSize(): number {
     return this.size;
-  }
-  getGuideSize(): number {
-    return this.guideSize;
   }
 
   /** Check if mouse cursor is over the metaball. */
@@ -55,10 +50,9 @@ export class Blob {
           e.clientY / this.resolution
         ) * 100
       ) / 100;
-    if (Math.round(this.guideSize * 100) / 100 > blobToMouse) {
+
+    if (Math.round(this.size * 100) / 100 > blobToMouse) {
       return "move";
-    } else if (Math.round(this.size * 100) / 100 > blobToMouse) {
-      return "guide";
     }
     return "nothing";
   }
