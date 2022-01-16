@@ -7,6 +7,7 @@ Drag to draw a metaball on the canvas.
 
 ```bash
 git clone https://github.com/heutronica/metaballDrawTool.git
+cd metaballDrawTool
 npm install
 npm run dev
 ```
