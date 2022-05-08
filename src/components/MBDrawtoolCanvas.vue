@@ -277,11 +277,13 @@ const resetCanvas = function () {
 const dlImage = function () {
   const downloadLink: HTMLAnchorElement = document.createElement("a");
   let today: Date = new Date();
-  downloadLink.href = _drawCanvas.value.toDataURL();
-  downloadLink.download = `metaball_${today.getFullYear()}${
-    today.getMonth() + 1
-  }${today.getDate()}.png`;
-  downloadLink.click();
+  if (_drawCanvas.value != undefined) {
+    downloadLink.href = _drawCanvas.value.toDataURL();
+    downloadLink.download = `metaball_${today.getFullYear()}${
+      today.getMonth() + 1
+    }${today.getDate()}.png`;
+    downloadLink.click();
+  }
 };
 </script>
 
