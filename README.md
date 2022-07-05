@@ -6,7 +6,7 @@
 
 Drag to draw a metaball on the canvas.
 
-Try on [this page](https://nekraph.work/app/metaballDrawTool/).
+Try on [this page](https://metaball-draw-tool.vercel.app/).
 
 ## Features
 
@@ -48,7 +48,3 @@ Try on [this page](https://nekraph.work/app/metaballDrawTool/).
 
 [Coding in the Cabana 5: Marching Squares](https://youtu.be/0ZONMNUKTfU)  
 ♥Great video by Daniel Shiffman.
-
-## License
-
-metaballDrawTool is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
