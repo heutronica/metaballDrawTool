@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Canvas from "./components/MBDrawtoolCanvas.vue";
+import Canvas from './components/TheCanvas.vue'
 
 //props書く
 </script>

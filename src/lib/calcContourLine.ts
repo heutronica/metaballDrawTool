@@ -1,5 +1,6 @@
-import * as mathFunc from "./mathFunc";
-/** generate vactor */
+// This is Marching square algorithm.
+// https://en.wikipedia.org/wiki/Marching_squares
+
 class vector {
   x: number;
   y: number;
@@ -16,109 +17,26 @@ class vector {
   }
 }
 
-export class Blob {
-  x: number;
-  y: number;
-  size: number;
-  resolution: number;
-
-  constructor(x: number, y: number, size: number, resolution: number) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.resolution = resolution;
-  }
-
-  getPosX(): number {
-    return this.x;
-  }
-  getPosY(): number {
-    return this.y;
-  }
-  getSize(): number {
-    return this.size;
-  }
-
-  /** Check if mouse cursor is over the metaball. */
-  getOnMouse(e: MouseEvent): string {
-    let blobToMouse: number =
-      Math.round(
-        mathFunc.dist(
-          this.x,
-          this.y,
-          e.clientX / this.resolution,
-          e.clientY / this.resolution
-        ) * 100
-      ) / 100;
-
-    if (Math.round(this.size * 100) / 100 > blobToMouse) {
-      return "move";
-    }
-    return "nothing";
-  }
-
-  /** Update metaball coordinates
-  @param {number} x 更新したいX座標値
-  @param {number} y 更新したいY座標値
-  @return {null} null
-  */
-  move(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
-/** Calculating drawCanvas's isoField */
-export function isoField(
-  fieldArray: number[][],
-  cols: number,
-  rows: number,
-  blobs: Blob[]
+export function calcContourLine(
+    fieldArray: number[][],
+    targetCor: number,
+    targetRow: number,
+    resolution: number,
+    stroke: CanvasRenderingContext2D,
 ) {
-  for (let i = 0; i < cols - 1; i++) {
-    for (let j = 0; j < rows - 1; j++) {
-      let sum: number = 0;
-
-      for (let k = 0; k < blobs.length; k++) {
-        let d: number = mathFunc.dist(
-          i,
-          j,
-          blobs[k].getPosX(),
-          blobs[k].getPosY()
-        );
-        sum += blobs[k].getSize() / d;
-      }
-
-      if (sum * 100 < 70) {
-        fieldArray[i][j] = 0;
-      } else {
-        fieldArray[i][j] = 1;
-      }
-    }
-  }
-}
-
-/** marchingSquare */
-export function marchingSquares(
-  fieldArray: number[][],
-  trgCor: number,
-  trgRow: number,
-  resolution: number,
-  stroke: CanvasRenderingContext2D
-) {
-  const x = trgCor * resolution;
-  const y = trgRow * resolution;
+  const x = targetCor * resolution;
+  const y = targetRow * resolution;
 
   const a = new vector(x + resolution * 0.5, y); // TOP
   const b = new vector(x + resolution, y + resolution * 0.5); // RIGHT
   const c = new vector(x + resolution * 0.5, y + resolution); // LEFT
   const d = new vector(x, y + resolution * 0.5); // BOTTOM
 
-  let state = getState(
-    fieldArray[trgCor][trgRow],
-    fieldArray[trgCor + 1][trgRow],
-    fieldArray[trgCor + 1][trgRow + 1],
-    fieldArray[trgCor][trgRow + 1]
+  const state = getState(
+      fieldArray[targetCor][targetRow],
+      fieldArray[targetCor + 1][targetRow],
+      fieldArray[targetCor + 1][targetRow + 1],
+      fieldArray[targetCor][targetRow + 1],
   );
 
   function getState(a: number, b: number, c: number, d: number) {
